@@ -6,31 +6,27 @@ import numpy as np
 video_capture = cv2.VideoCapture(0)
 
 
-# def encoding(location, name){
-#     image = face_recognition.load_image_file(location)
-#     encoding = face_recognition.face_encodings
+class face:
+    def __init__(self, imageLocation, name):
+        self._imageLocation = imageLocation
+        self._personName = name
 
-# }
+    def load_image_file(self):
+        return face_recognition.load_image_file(self._imageLocation)
+
+    def face_encoding(self):
+        return face_recognition.face_encodings(self.load_image_file())[0]
+
+    def getName(self):
+        return self._personName
 
 
-# Load a sample picture and learn how to recognize it.
-obama_image = face_recognition.load_image_file("images/obama.jpg")
-obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
+obama = face("images/obama.jpg", "Obama")
+quang = face("images/quang.jpg", "Quang")
 
-# Load a second sample picture and learn how to recognize it.
-quang_image = face_recognition.load_image_file("images/quang.jpg")
-quang_face_encoding = face_recognition.face_encodings(quang_image)[0]
+knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
+knownFaceNames = [obama.getName(), quang.getName()]
 
-
-# Create arrays of known face encodings and their names
-known_face_encodings = [
-    obama_face_encoding,
-    quang_face_encoding,
-]
-known_face_names = [
-    "Barack Obama",
-    "Quang Luong",
-]
 
 # Initialize some variables
 face_locations = []
@@ -59,20 +55,20 @@ while True:
         for face_encoding in face_encodings:
             # See if the face is a match for the known face(s)
             matches = face_recognition.compare_faces(
-                known_face_encodings, face_encoding)
+                knownFaceEncodings, face_encoding)
             name = "Unknown"
 
-            # # If a match was found in known_face_encodings, just use the first one.
+            # # If a match was found in knownFaceEncodings, just use the first one.
             # if True in matches:
             #     first_match_index = matches.index(True)
             #     name = known_face_names[first_match_index]
 
             # Or instead, use the known face with the smallest distance to the new face
             face_distances = face_recognition.face_distance(
-                known_face_encodings, face_encoding)
+                knownFaceEncodings, face_encoding)
             best_match_index = np.argmin(face_distances)
             if matches[best_match_index]:
-                name = known_face_names[best_match_index]
+                name = knownFaceNames[best_match_index]
 
             face_names.append(name)
 
