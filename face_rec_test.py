@@ -31,6 +31,8 @@ def initializeFaceRecognition():
     while True:
         # Grab a single frame of video
         ret, frame = video_capture.read()
+        # print("ret", ret)
+        # print("frame", frame)
 
         # Resize frame of video to 1/4 size for faster face recognition processing
         small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
@@ -100,12 +102,31 @@ def initializeFaceRecognition():
     cv2.destroyAllWindows()
 
 
+def getInput():
+    print("Select from the actions below:")
+    print("(a) Add data")
+    print("(b) Start Face Recog")
+    inp = input("Enter a or b:\n").strip().lower()
+    return inp
+
+
+def getData():
+    # use camera to take picture and save it in images folder.
+    name = input("Enter name of the person whose data is to be entered.\n")
+    print(name)
+    # do the rest of the process and append it to "knownFaceEncodings" and "knownFaceNames"
+
+
 if __name__ == "__main__":
 
+    # the following data (next 4 lines) has to be organised
     obama = faces("images/obama.jpg", "Obama")
     quang = faces("images/quang.jpg", "Quang")
-
     knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
     knownFaceNames = [obama.getName(), quang.getName()]
 
-    initializeFaceRecognition()
+    inp = getInput()
+    if inp == 'a':
+        getData()
+    else:
+        initializeFaceRecognition()
