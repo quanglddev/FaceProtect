@@ -1,9 +1,10 @@
 import face_recognition
 import cv2
 import numpy as np
+import sys
 
-# Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
+# NOTE: We could use packages for keyboard input (like "from pynput.keyboard import Key, Controller")
+# NOTE: Press o to capture image, q to end face recognition
 
 
 class faces:
@@ -22,6 +23,8 @@ class faces:
 
 
 def initializeFaceRecognition():
+    # Get a reference to webcam #0 (the default one)
+    video_capture = cv2.VideoCapture(0)
     # Initialize some variables
     face_locations = []
     face_encodings = []
@@ -106,27 +109,61 @@ def getInput():
     print("Select from the actions below:")
     print("(a) Add data")
     print("(b) Start Face Recog")
-    inp = input("Enter a or b:\n").strip().lower()
+    print("(c) Exit")
+    inp = input("Enter a, b or c:\n").strip().lower()
     return inp
 
 
 def getData():
-    # use camera to take picture and save it in images folder.
     name = input("Enter name of the person whose data is to be entered.\n")
     print(name)
-    # do the rest of the process and append it to "knownFaceEncodings" and "knownFaceNames"
+    getImage(name)
+    # creating new object of face class and encoding the new image
+    newImage = faces("images/%s.jpg" % (name), name)
+    # adding the encoding and name to knownFaceEncodings and knownFaceNames lists.
+    knownFaceEncodings.append(newImage.face_encoding())
+    knownFaceNames.append(newImage.getName())
+    initializeFaceRecognition()
+
+
+def getImage(name):
+    # captures image and saves it in the images folder with the entered name (name.jpg)
+    cap = cv2.VideoCapture(0)
+
+    while(True):
+        ret, frame = cap.read()
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
+
+        cv2.imshow('frame', rgb)
+        if cv2.waitKey(1) & 0xFF == ord('o'):
+            # FIXME: Add an inspector to check if image exists with same name.
+            out = cv2.imwrite('images/%s.jpg' % (name), frame)
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+def takeAction(input):
+    if input == 'a':
+        getData()
+    elif input == 'b':
+        initializeFaceRecognition()
+    elif input == 'c':
+        sys.exit()
+    else:
+        print("Please enter the correct choice")
+        inp = getInput()
+        takeAction(inp)
 
 
 if __name__ == "__main__":
-
-    # the following data (next 4 lines) has to be organised
-    obama = faces("images/obama.jpg", "Obama")
-    quang = faces("images/quang.jpg", "Quang")
-    knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
-    knownFaceNames = [obama.getName(), quang.getName()]
-
-    inp = getInput()
-    if inp == 'a':
-        getData()
-    else:
-        initializeFaceRecognition()
+    # FIXME: The datastructure is list and the program does not read form the images folder itself. The program should be able to read data from the images folder itself.
+    # obama = faces("images/obama.jpg", "Obama")
+    # quang = faces("images/quang.jpg", "Quang")
+    # knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
+    # knownFaceNames = [obama.getName(), quang.getName()]
+    inp = ""
+    while inp != "exit":
+        inp = getInput()
+        takeAction(inp)
