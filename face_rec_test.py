@@ -2,6 +2,7 @@ import face_recognition
 import cv2
 import numpy as np
 import sys
+import json
 
 # NOTE: We could use packages for keyboard input (like "from pynput.keyboard import Key, Controller")
 # NOTE: Press o to capture image, q to end face recognition
@@ -116,7 +117,6 @@ def getInput():
 
 def getData():
     name = input("Enter name of the person whose data is to be entered.\n")
-    print(name)
     getImage(name)
     # creating new object of face class and encoding the new image
     newImage = faces("images/%s.jpg" % (name), name)
@@ -159,10 +159,11 @@ def takeAction(input):
 
 if __name__ == "__main__":
     # FIXME: The datastructure is list and the program does not read form the images folder itself. The program should be able to read data from the images folder itself.
-    # obama = faces("images/obama.jpg", "Obama")
-    # quang = faces("images/quang.jpg", "Quang")
-    # knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
-    # knownFaceNames = [obama.getName(), quang.getName()]
+    obama = faces("images/obama.jpg", "Obama")
+    quang = faces("images/quang.jpg", "Quang")
+    knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
+    knownFaceNames = [obama.getName(), quang.getName()]
+    # print(knownFaceEncodings[0])
     inp = ""
     while inp != "exit":
         inp = getInput()
