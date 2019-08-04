@@ -1,6 +1,7 @@
 import face_recognition
 import cv2
 import numpy as np
+import sys
 
 # importing os module  
 import os 
@@ -101,3 +102,4 @@ def startRecognition():
     # Release handle to the webcam
     video_capture.release()
     cv2.destroyAllWindows()
+    sys.exit()

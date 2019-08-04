@@ -40,7 +40,8 @@ if __name__ == "__main__":
             showRequestImageOption()
             shouldNewImage = input("Do you want to use existing image or take a new one?: ")
             if shouldNewImage == "1":
-                newImagePath = input(("Enter the path storing the %s's face: " % (newName)))
+                newImagePath = input(("Enter the path storing %s's face: " % (newName)))
+                
                 saveImageToDatabse(newImagePath, newName)
             elif shouldNewImage == "2":
                 takePictureUsingWebcam(newName)

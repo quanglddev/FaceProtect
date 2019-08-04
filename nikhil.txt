@@ -1,0 +1,20 @@
+[
+  "name":"encoding",
+  "quang": [<the encoding goes here>],
+]
+
+{
+    {
+      "name": "quang",
+    "encoding":"[<encoding>]"
+    },
+    {
+      "name": "quang",
+    "encoding":"[<encoding>]"
+    },
+}
+
+{
+    'int': 1, 
+    'char': 'b'
+}
