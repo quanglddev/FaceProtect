@@ -10,27 +10,27 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 # Path 
 path = os.path.join(dir_path, "..", "images")
 
-def startRecognition():
+def startRecognition(known_face_encodings, known_face_names):
     # Get a reference to webcam #0 (the default one)
     video_capture = cv2.VideoCapture(0) 
 
     # Create arrays of known face encodings and their names
-    known_face_encodings = []
-    known_face_names = []
+    # known_face_encodings = []
+    # known_face_names = []
 
     # Load pictures in images folder and learn how to recognize it.
-    for imageFile in os.listdir(path):
-        if imageFile.endswith(".jpg") or imageFile.endswith(".png") or imageFile.endswith(".jpeg"):
-            try:
-                someone_image = face_recognition.load_image_file(os.path.join(path, imageFile))
-                someone_face_encoding = face_recognition.face_encodings(someone_image)[0]
-                print("Learned:", os.path.join(path, imageFile))
+    # for imageFile in os.listdir(path):
+    #     if imageFile.endswith(".jpg") or imageFile.endswith(".png") or imageFile.endswith(".jpeg"):
+    #         try:
+    #             someone_image = face_recognition.load_image_file(os.path.join(path, imageFile))
+    #             someone_face_encoding = face_recognition.face_encodings(someone_image)[0]
+    #             print("Learned:", os.path.join(path, imageFile))
 
-                known_face_encodings.append(someone_face_encoding)
-                # This means we must have the image file name the same as the name appear on screen
-                known_face_names.append(imageFile.split(".")[0])
-            except:
-                print("Unabled to learn from", imageFile)
+    #             known_face_encodings.append(someone_face_encoding)
+    #             # This means we must have the image file name the same as the name appear on screen
+    #             known_face_names.append(imageFile.split(".")[0])
+    #         except:
+    #             print("Unabled to learn from", imageFile)
 
     # Initialize some variables
     face_locations = []

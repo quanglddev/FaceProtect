@@ -16,7 +16,7 @@ def saveImageToDatabse(imagePath, newName):
         # newName + imagePath.split(".")[1] => gives you the extension as it will be filename.ext => [filename, ext]
         imageExtension = imagePath.split(".")[1]
         copy2(imagePath, os.path.join(path, newName + "." + imageExtension))
-        print("Success")
         sleep(1)
+        return (os.path.join(path, newName + "." + imageExtension))
     except:
-        print("Somethings wrong. Code: 517")
+        return False # ! Error Expected

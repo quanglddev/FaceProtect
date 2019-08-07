@@ -19,7 +19,7 @@ def takePictureUsingWebcam(personName):
         if cv2.waitKey(1) & 0xFF == ord('o'):
             # FIXME: Add an inspector to check if image exists with same name.
             out = cv2.imwrite(os.path.join(path, ('%s.jpg' % (personName))), frame)
-            break
-
+            return os.path.join(path, ('%s.jpg' % (personName)))
+            
     cap.release()
     cv2.destroyAllWindows()
