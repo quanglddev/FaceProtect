@@ -6,7 +6,10 @@ from Tools.ClearTool import clear
 from Tools.SaveImageTool import saveImageToDatabse
 from Tools.RecognizerTool import startRecognition
 from Tools.TakePictureTool import takePictureUsingWebcam
-
+ 
+'''
+# ! This is cool (Better Comments extension (try))
+'''
 def showHeader():
     clear()
     print("================================================")
