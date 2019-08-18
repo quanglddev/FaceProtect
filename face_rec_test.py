@@ -159,8 +159,8 @@ def takeAction(input):
 
 if __name__ == "__main__":
     # FIXME: The datastructure is list and the program does not read form the images folder itself. The program should be able to read data from the images folder itself.
-    obama = faces("images/obama.jpg", "Obama")
-    quang = faces("images/quang.jpg", "Quang")
+    obama = faces("images/Barack obama.jpg", "Obama")
+    quang = faces("images/Quang Luong.jpg", "Quang")
     knownFaceEncodings = [obama.face_encoding(), quang.face_encoding()]
     knownFaceNames = [obama.getName(), quang.getName()]
     # print(knownFaceEncodings[0])
